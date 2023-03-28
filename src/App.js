@@ -61,9 +61,8 @@ function AskHN() {
         </div>
       </div>
       <div className="banner-container">
-        A toy project to demonstrate webhooks and responses
-        <a href="https://www.patterns.app" target="_blank" rel="noopener noreferrer" className="powered-by">
-              , powered by Patterns. 
+        <a href="https://www.patterns.app/blog/2023/03/28/response-webhooks" target="_blank" rel="noopener noreferrer" className="powered-by">
+        A project to demonstrate webhooks and responses, powered by Patterns. 
         </a>
       </div>
     </div>
