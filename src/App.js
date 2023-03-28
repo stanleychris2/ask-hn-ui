@@ -36,7 +36,7 @@ function AskHN() {
   return (
     <div className="ask-hn-container">
       <div className="header-container">
-        <h1>AskHN: The Collective GPT embodied wisdom of Hacker News</h1>
+        <h3>AskHN: The Collective GPT embodied wisdom of Hacker News</h3>
       </div>
       <div className="content-container">
         
@@ -54,8 +54,9 @@ function AskHN() {
             {isLoading ? "Asking..." : "Ask"}
           </button>
         </form>
+        <h4>Answer:</h4>
         <div className="answer-container">
-          <h2>Answer:</h2>
+          
           <p>{answer}</p>
         </div>
       </div>
