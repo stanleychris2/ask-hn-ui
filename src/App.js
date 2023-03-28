@@ -1,25 +1,72 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./AskHN.css";
 
-function App() {
+function AskHN() {
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    try {
+      const response = await fetch(process.env.REACT_APP_API_URL , {
+        method: "POST",
+        body: JSON.stringify({ question }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      setAnswer(data.content);
+      setQuestion("");
+    } catch (error) {
+      console.error(error);
+      setAnswer("An error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = (event) => {
+    setQuestion(event.target.value);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+    <div className="ask-hn-container">
+      <div className="header-container">
+        <h1>AskHN: The Collective GPT embodied wisdom of Hacker News</h1>
+      </div>
+      <div className="content-container">
+        
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="question">Ask a question:</label>
+          <textarea
+            id="question"
+            name="question"
+            rows="3"
+            value={question}
+            onChange={handleChange}
+            required
+          />
+          <button type="submit" disabled={isLoading} className="ask-button">
+            {isLoading ? "Asking..." : "Ask"}
+          </button>
+        </form>
+        <div className="answer-container">
+          <h2>Answer:</h2>
+          <p>{answer}</p>
+        </div>
+      </div>
+      <div className="banner-container">
+        A toy project to demonstrate webhooks and responses
+        <a href="https://www.patterns.app" target="_blank" rel="noopener noreferrer" className="powered-by">
+              , powered by Patterns. 
         </a>
-      </header>
+      </div>
     </div>
   );
 }
 
-export default App;
+export default AskHN;
